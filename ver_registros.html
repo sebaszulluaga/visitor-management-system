@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Registros</title>
+    <style>
+        .habitacion {
+            border: 1px solid black;
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ver Registros</h1>
+    <form method="POST" action="{{ url_for('ver_registros') }}">
+        <label for="mes">Seleccionar Mes:</label>
+        <select name="mes" id="mes">
+            <option value="">Todos</option>
+            <option value="01">Enero</option>
+            <option value="02">Febrero</option>
+            <option value="03">Marzo</option>
+            <option value="04">Abril</option>
+            <option value="05">Mayo</option>
+            <option value="06">Junio</option>
+            <option value="07">Julio</option>
+            <option value="08">Agosto</option>
+            <option value="09">Septiembre</option>
+            <option value="10">Octubre</option>
+            <option value="11">Noviembre</option>
+            <option value="12">Diciembre</option>
+        </select>
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <button onclick="window.print()">Imprimir Registros</button>
+
+    {% for cuarto, registros in registros.items() %}
+    <div class="habitacion">
+        <h2>Habitación: {{ cuarto }}</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Residente ID</th>
+                    <th>Nombre</th>
+                    <th>Cuarto</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Tipo Movimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in registros %}
+                <tr>
+                    <td>{{ registro[0] }}</td>
+                    <td>{{ registro[1] }}</td>
+                    <td>{{ registro[2] }}</td>
+                    <td>{{ registro[3] }}</td>
+                    <td>{{ registro[4] }}</td>
+                    <td>{{ registro[5] }}</td>
+                    <td>{{ registro[6] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+
+    <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+</body>
+</html>
